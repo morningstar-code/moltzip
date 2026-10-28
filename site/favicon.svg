@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <!-- MoltZip. Redrawn as vectors from the logo generated with ChatGPT
+       (assets/icon/source/chatgpt.png). A zipped archive made of slabs, cut
+       away while its files fly out as blue tiles; the amber folder is where
+       they land. Drawn in the 1254 px space of the original and scaled. -->
+  <defs>
+    <linearGradient id="plate" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#E9EEF6"/>
+    </linearGradient>
+  </defs>
+  <!-- A light plate, so the dark archive still reads on dark taskbars and docks. -->
+  <rect x="40" y="40" width="944" height="944" rx="212" fill="url(#plate)"/>
+  <rect x="40" y="40" width="944" height="944" rx="212" fill="none" stroke="#C9D2E0" stroke-width="8"/>
+  <g transform="translate(512 512) scale(0.70) translate(-708 -628)">
+    <g fill="#15171D">
+      <!-- Top slab, with a notch for the folder's tab. -->
+      <path d="M344 350 H676 Q714 350 732 384 L744 408 V486 Q744 506 724 506 H674 Q652 506 652 528 V552 Q652 566 638 566 H222 Q204 566 204 548 V490 Q204 350 344 350 Z"/>
+      <rect x="204" y="590" width="432" height="146" rx="16"/>
+      <rect x="204" y="760" width="780" height="140" rx="16"/>
+      <path d="M220 924 H968 Q984 924 984 940 V1000 Q984 1140 844 1140 H344 Q204 1140 204 1000 V940 Q204 924 220 924 Z"/>
+      <!-- The zipper's backing runs through the gaps between slabs. -->
+      <rect x="478" y="350" width="132" height="760" rx="20"/>
+    </g>
+    <!-- The folder the files land in. -->
+    <path d="M692 574 H776 L810 606 H920 Q950 606 950 636 V700 Q950 728 922 728 H692 Q664 728 664 700 V602 Q664 574 692 574 Z"
+          fill="#15171D" stroke="#FFC233" stroke-width="24" stroke-linejoin="round"/>
+    <g fill="#1F6FFF">
+      <rect x="520" y="350" width="48" height="600" rx="10"/>
+      <rect x="472" y="408" width="144" height="46" rx="12"/>
+      <rect x="472" y="497" width="144" height="46" rx="12"/>
+      <rect x="472" y="586" width="144" height="46" rx="12"/>
+      <rect x="472" y="675" width="144" height="46" rx="12"/>
+      <rect x="472" y="764" width="144" height="46" rx="12"/>
+      <rect x="472" y="853" width="144" height="46" rx="12"/>
+      <!-- The pull. -->
+      <path fill-rule="evenodd" d="M494 926 H594 Q612 926 614 944 L626 1078 Q628 1100 606 1100 H482 Q460 1100 462 1078 L474 944 Q476 926 494 926 Z M514 962 L506 1062 H582 L574 962 Z"/>
+      <!-- Files flying out. -->
+      <rect x="-46" y="-46" width="92" height="92" rx="12" transform="translate(818 494) rotate(28)"/>
+      <rect x="-68" y="-68" width="136" height="136" rx="16" transform="translate(942 378) rotate(28)"/>
+      <rect x="-78" y="-78" width="156" height="156" rx="18" transform="translate(1104 208) rotate(22)"/>
+    </g>
+  </g>
+</svg>

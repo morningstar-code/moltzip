@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://morningstar-code.github.io/moltzip/sitemap.xml

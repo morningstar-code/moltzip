@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<meta name="color-scheme" content="light dark">
+<title>MoltZip: extract huge archives without double the disk space</title>
+<meta name="description" content="MoltZip is a free extractor for ZIP, 7z, RAR and tar that works in place: it cuts the archive away as your files come out, so it needs free space for the files only.">
+<link rel="canonical" href="https://morningstar-code.github.io/moltzip/">
+<link rel="alternate" hreflang="en" href="https://morningstar-code.github.io/moltzip/">
+<link rel="alternate" hreflang="es" href="https://morningstar-code.github.io/moltzip/es/">
+<meta property="og:url" content="https://morningstar-code.github.io/moltzip/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="MoltZip">
+<meta property="og:title" content="MoltZip: extract huge archives without double the disk space">
+<meta property="og:description" content="Free, for Windows, macOS and Linux. The archive is cut away as your files come out.">
+<meta property="og:image" content="https://morningstar-code.github.io/moltzip/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="alternate" type="text/plain" href="llms.txt" title="MoltZip for language models">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"MoltZip","description":"A free archive extractor that extracts ZIP, 7z, RAR, tar, .tar.gz and split archives in place, so it needs free space for the extracted files only.","applicationCategory":"UtilitiesApplication","operatingSystem":"Windows 10, Windows 11, macOS, Linux","softwareVersion":"0.2.0","url":"https://morningstar-code.github.io/moltzip/","downloadUrl":"https://github.com/morningstar-code/moltzip/releases/latest","license":"https://github.com/morningstar-code/moltzip/blob/main/LICENSE.md","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+</script>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="style.css?v=7">
+</head>
+<body>
+<div class="wrap">
+<header class="bar">
+<a class="brand" href="./"><img src="favicon.svg" alt="" width="36" height="36"><span>MoltZip</span></a>
+<nav aria-label="Main">
+<a href="#download">Download</a>
+<a href="#how">How it works</a>
+<a href="#features">Features</a>
+<a href="#faq">Questions</a>
+<a href="https://github.com/morningstar-code/moltzip">GitHub</a>
+<a class="lang" href="es/" hreflang="es" lang="es">Español</a>
+</nav>
+</header>
+
+<main>
+<div class="hero">
+<h1>Extract huge archives.<br><span>Without double the disk space.</span></h1>
+<p class="lead">MoltZip extracts ZIP, 7z, RAR and tar archives in place. It cuts the archive away as your files come out, so you only need room for the files, not for the files and the archive together.</p>
+<div id="download" class="gets">
+<a class="get" href="https://github.com/morningstar-code/moltzip/releases/latest/download/MoltZip-x64-setup.exe">Download for Windows</a>
+<a class="get alt" href="https://github.com/morningstar-code/moltzip/releases/latest/download/MoltZip-aarch64.dmg">macOS (Apple Silicon)</a>
+<a class="get alt" href="https://github.com/morningstar-code/moltzip/releases/latest/download/MoltZip-x86_64.AppImage">Linux</a>
+</div>
+<p class="note">Free. Windows 10 and 11, 64-bit. Also for <a href="https://github.com/morningstar-code/moltzip/releases/latest/download/MoltZip-x86_64.dmg">Intel Macs</a>, as <a href="#all-downloads">.deb, .rpm, MSI and portable</a>, and as a command line tool.</p>
+<div class="demo">
+<picture>
+<source srcset="img/moltzip-en-dark.gif" media="(prefers-color-scheme: dark)">
+<img src="img/moltzip-en-light.gif" width="960" height="540" alt="An animation: MoltZip extracts the last part of the archive into the folder, then cuts that part off the archive, so the disk never holds the archive and all the files at once. A 180 GB archive that unpacks to 200 GB needs 380 GB with other extractors and 202 GB with MoltZip.">
+</picture>
+</div>
+</div>
+
+<section id="how" aria-labelledby="how-h">
+<h2 id="how-h">How it works</h2>
+<p class="sub">A 180 GB download that unpacks to 200 GB needs 380 GB with WinRAR, 7-Zip or <code>unzip</code>, because the archive and the files exist at the same time. MoltZip needs a little over 200 GB.</p>
+<ol class="steps">
+<li><strong>Checks before touching anything.</strong> It replays the whole extraction to find the moment that needs the most space, and tells you if it fits.</li>
+<li><strong>Extracts from the end.</strong> Files are written, checked against their CRC-32 and flushed to the disk.</li>
+<li><strong>Cuts the archive behind it.</strong> Only then is that part cut off the archive file, and the space is reused for the next files.</li>
+</ol>
+</section>
+
+<section id="features" aria-labelledby="features-h">
+<h2 id="features-h">What it does</h2>
+<p class="sub">Based on HatchZip's engine and its crash tests. More is on the way: .tar.xz, .tar.zst and .tar.bz2, read-back before every cut, the app in Spanish.</p>
+<div class="grid">
+<div class="card"><h3>ZIP, 7z, RAR, tar, .tar.gz</h3><p>ZIP64 and self-extracting <code>.exe</code>, solid and split 7z, RAR 5 and RAR 4 volume sets, <code>.001</code> splits. Password-protected ZIP, 7z and RAR.</p></div>
+<div class="card"><h3>Stops and resumes</h3><p>Ctrl+C, a crash or a power cut at any moment: run it again and it continues where it stopped. Or restore the rest as a normal archive.</p></div>
+<div class="card"><h3>Never overwrites</h3><p>Existing files are kept unless you choose replace, skip or keep both for each one.</p></div>
+<div class="card"><h3>Hostile archives refused</h3><p>Paths that escape the folder, overlapping entries and dangerous links are refused before anything is deleted.</p></div>
+<div class="card"><h3>Keep the archive, too</h3><p>When there is room for both, extract normally and keep it: <code>--keep-archive</code> or Extract here (keep archive).</p></div>
+<div class="card"><h3>Any disk</h3><p>NTFS, APFS, ext4, btrfs, XFS, and exFAT and FAT32 USB drives. No network access, no telemetry.</p></div>
+</div>
+</section>
+
+<section aria-labelledby="results-h">
+<h2 id="results-h">Measured</h2>
+<p class="sub">The same 200 MB of game data (21 files), packed by the real tools, extracted on a 220 MiB disk with about 50 MB free. Measured by the HatchZip project on its engine, which MoltZip uses unchanged.</p>
+<div class="table">
+<table>
+<thead><tr><th scope="col">Archive</th><th scope="col"><code>unzip</code> / 7-Zip</th><th scope="col">MoltZip</th></tr></thead>
+<tbody>
+<tr><th scope="row">ZIP, 180 MB</th><td class="no">Ran out of space at file 6 of 21</td><td class="yes">Finished, every file byte-identical</td></tr>
+<tr><th scope="row">7z, 10 solid blocks</th><td class="no">Needs 380 MB</td><td class="yes">Finished in 0.64 s</td></tr>
+<tr><th scope="row">7z split into 5 volumes</th><td class="no">Needs 380 MB</td><td class="yes">Finished, peak 210 MB used</td></tr>
+<tr><th scope="row">tar, 200 MB</th><td class="no">Needs 400 MB</td><td class="yes">Finished in 0.12 s</td></tr>
+</tbody>
+</table>
+</div>
+<p class="note">Fedora 43, Intel Core i7-14700HX, NVMe SSD, warm page cache; a 220 MiB tmpfs stood in for a full disk.</p>
+</section>
+
+<section aria-labelledby="all-downloads">
+<h2 id="all-downloads">All downloads</h2>
+<p class="sub">Every file has a <code>.sha256</code> checksum next to it on the <a href="https://github.com/morningstar-code/moltzip/releases/latest">releases page</a>. <a href="verify.html">Verify a download</a>.</p>
+<div class="table">
+<table>
+<thead><tr><th scope="col">System</th><th scope="col">Desktop app and command line</th><th scope="col">Command line only</th></tr></thead>
+<tbody>
+<tr><th scope="row">Windows 10 and 11</th><td><a href="https://github.com/morningstar-code/moltzip/releases/latest/download/MoltZip-x64-setup.exe">Setup</a>, <a href="https://github.com/morningstar-code/moltzip/releases/latest/download/MoltZip-x64.msi">MSI</a>, <a href="https://github.com/morningstar-code/moltzip/releases/latest/download/MoltZip-x64-portable.zip">portable zip</a></td><td><a href="https://github.com/morningstar-code/moltzip/releases/latest/download/moltzip-x86_64-windows.zip">moltzip-x86_64-windows.zip</a></td></tr>
+<tr><th scope="row">macOS, Apple Silicon</th><td><a href="https://github.com/morningstar-code/moltzip/releases/latest/download/MoltZip-aarch64.dmg">MoltZip-aarch64.dmg</a></td><td><a href="https://github.com/morningstar-code/moltzip/releases/latest/download/moltzip-aarch64-macos.tar.gz">moltzip-aarch64-macos.tar.gz</a></td></tr>
+<tr><th scope="row">macOS, Intel</th><td><a href="https://github.com/morningstar-code/moltzip/releases/latest/download/MoltZip-x86_64.dmg">MoltZip-x86_64.dmg</a></td><td><a href="https://github.com/morningstar-code/moltzip/releases/latest/download/moltzip-x86_64-macos.tar.gz">moltzip-x86_64-macos.tar.gz</a></td></tr>
+<tr><th scope="row">Linux x64</th><td><a href="https://github.com/morningstar-code/moltzip/releases/latest/download/MoltZip-x86_64.AppImage">AppImage</a>, <a href="https://github.com/morningstar-code/moltzip/releases/latest/download/moltzip_amd64.deb">.deb</a>, <a href="https://github.com/morningstar-code/moltzip/releases/latest/download/moltzip-x86_64.rpm">.rpm</a></td><td><a href="https://github.com/morningstar-code/moltzip/releases/latest/download/moltzip-x86_64-linux.tar.gz">moltzip-x86_64-linux.tar.gz</a></td></tr>
+<tr><th scope="row">Linux ARM64</th><td></td><td><a href="https://github.com/morningstar-code/moltzip/releases/latest/download/moltzip-aarch64-linux.tar.gz">moltzip-aarch64-linux.tar.gz</a></td></tr>
+</tbody>
+</table>
+</div>
+<p>Or install the command line tool from a terminal. Linux and macOS:</p>
+<pre><code>curl -fsSL https://raw.githubusercontent.com/morningstar-code/moltzip/main/install.sh | sh</code></pre>
+<p>Windows, in PowerShell:</p>
+<pre><code>irm https://raw.githubusercontent.com/morningstar-code/moltzip/main/install.ps1 | iex</code></pre>
+<p>Then <code>moltzip check game.zip</code> shows whether it fits and <code>moltzip extract game.zip</code> extracts it. <code>mz</code> is the short name.</p>
+<p class="note">The downloads are not code-signed yet. On Windows choose More info, then Run anyway. On macOS, open the app once, then allow it in System Settings, Privacy &amp; Security.</p>
+</section>
+
+<section id="faq" aria-labelledby="faq-h">
+<h2 id="faq-h">Questions</h2>
+<details><summary>Is it safe? It deletes my archive.</summary><p>Nothing changes until the plan fits. A file is written and flushed to the disk before the part of the archive holding it is cut off, so a crash leaves every file either extracted or still in the archive. Every file's checksum is verified, and a damaged one stops the run. When the archive can't be downloaded again, add <code>--verify-first</code>, or keep it with <code>--keep-archive</code>.</p></details>
+<details><summary>How much free space does it need?</summary><p>About the size of the extracted files plus the largest piece it can free at once: one file for ZIP, tar and RAR, one solid block for 7z. It also keeps 2 GB free. <code>moltzip check</code> shows the exact figure and changes nothing.</p></details>
+<details><summary>What if it crashes or I stop it?</summary><p>Run the same command or open the same archive again and it continues. To give up, <code>moltzip restore</code> turns what is left into a normal archive any tool opens.</p></details>
+<details><summary>Does it use the internet?</summary><p>No. It has no networking code and no networking library, no telemetry and no accounts. Its CI fails if one ever enters the dependencies.</p></details>
+<details><summary>How is it related to HatchZip?</summary><p>MoltZip is built on <a href="https://github.com/xevrion/hatchzip">HatchZip</a> by Yash Bavadiya, an open source extractor under the MIT or Apache-2.0 license, and adds its own improvements. MoltZip itself is free to use but its source code is not public; HatchZip's license and every other third-party notice come with it (<a href="https://github.com/morningstar-code/moltzip/blob/main/THIRD-PARTY-NOTICES.md">third-party notices</a>). Thanks to HatchZip's author for a careful engine.</p></details>
+</section>
+</main>
+
+<footer>
+<p>MoltZip is free to use: <a href="https://github.com/morningstar-code/moltzip/blob/main/LICENSE.md">license</a>. It includes HatchZip, under MIT or Apache-2.0, and decodes RAR with UnRAR, under its own license: <a href="https://github.com/morningstar-code/moltzip/blob/main/THIRD-PARTY-NOTICES.md">third-party notices</a>.</p>
+<p><a href="https://github.com/morningstar-code/moltzip">GitHub</a> · <a href="verify.html">Verify a download</a> · <a href="https://github.com/morningstar-code/moltzip/issues">Report a bug</a> · <a href="es/" hreflang="es">Español</a></p>
+<p>Made by <a href="https://github.com/morningstar-code">Morningstar</a>. Based on HatchZip by Yash Bavadiya.</p>
+</footer>
+</div>
+</body>
+</html>
