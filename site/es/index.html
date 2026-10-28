@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<meta name="color-scheme" content="light dark">
+<title>MoltZip: extrae archivos enormes sin necesitar el doble de espacio</title>
+<meta name="description" content="MoltZip es un extractor gratuito para ZIP, 7z, RAR y tar que trabaja en el sitio: recorta el comprimido mientras salen tus archivos, así solo necesitas espacio para los archivos.">
+<link rel="canonical" href="https://morningstar-code.github.io/moltzip/es/">
+<link rel="alternate" hreflang="en" href="https://morningstar-code.github.io/moltzip/">
+<link rel="alternate" hreflang="es" href="https://morningstar-code.github.io/moltzip/es/">
+<meta property="og:url" content="https://morningstar-code.github.io/moltzip/es/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="MoltZip">
+<meta property="og:title" content="MoltZip: extrae archivos enormes sin necesitar el doble de espacio">
+<meta property="og:description" content="Gratis, para Windows, macOS y Linux. El comprimido se recorta mientras salen tus archivos.">
+<meta property="og:image" content="https://morningstar-code.github.io/moltzip/img/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../style.css?v=7">
+</head>
+<body>
+<div class="wrap">
+<header class="bar">
+<a class="brand" href="./"><img src="../favicon.svg" alt="" width="36" height="36"><span>MoltZip</span></a>
+<nav aria-label="Principal">
+<a href="#descargar">Descargar</a>
+<a href="#como">Cómo funciona</a>
+<a href="#funciones">Funciones</a>
+<a href="#preguntas">Preguntas</a>
+<a href="https://github.com/morningstar-code/moltzip">GitHub</a>
+<a class="lang" href="../" hreflang="en" lang="en">English</a>
+</nav>
+</header>
+
+<main>
+<div class="hero">
+<h1>Extrae archivos enormes.<br><span>Sin necesitar el doble de disco.</span></h1>
+<p class="lead">MoltZip extrae archivos ZIP, 7z, RAR y tar en el sitio. Recorta el comprimido a medida que salen tus archivos, así solo necesitas espacio para los archivos, no para los archivos y el comprimido a la vez.</p>
+<div id="descargar" class="gets">
+<a class="get" href="https://github.com/morningstar-code/moltzip/releases/latest/download/MoltZip-x64-setup.exe">Descargar para Windows</a>
+<a class="get alt" href="https://github.com/morningstar-code/moltzip/releases/latest/download/MoltZip-aarch64.dmg">macOS (Apple Silicon)</a>
+<a class="get alt" href="https://github.com/morningstar-code/moltzip/releases/latest/download/MoltZip-x86_64.AppImage">Linux</a>
+</div>
+<p class="note">Gratis. Windows 10 y 11, 64 bits. También para <a href="https://github.com/morningstar-code/moltzip/releases/latest/download/MoltZip-x86_64.dmg">Mac con Intel</a>, en <a href="#todas">.deb, .rpm, MSI y portable</a>, y como herramienta de línea de comandos.</p>
+<div class="demo">
+<picture>
+<source srcset="../img/moltzip-es-dark.gif" media="(prefers-color-scheme: dark)">
+<img src="../img/moltzip-es-light.gif" width="960" height="540" alt="Una animación: MoltZip extrae la última parte del comprimido a la carpeta y luego la recorta del comprimido, así el disco nunca guarda el comprimido y todos los archivos a la vez. Un comprimido de 180 GB que ocupa 200 GB extraído necesita 380 GB con otros extractores y 202 GB con MoltZip.">
+</picture>
+</div>
+</div>
+
+<section id="como" aria-labelledby="como-h">
+<h2 id="como-h">Cómo funciona</h2>
+<p class="sub">Una descarga de 180 GB que ocupa 200 GB al extraerla necesita 380 GB con WinRAR, 7-Zip o <code>unzip</code>, porque el comprimido y los archivos existen al mismo tiempo. MoltZip necesita poco más de 200 GB.</p>
+<ol class="steps">
+<li><strong>Comprueba antes de tocar nada.</strong> Simula toda la extracción para encontrar el momento que más espacio necesita y te dice si cabe.</li>
+<li><strong>Extrae desde el final.</strong> Cada archivo se escribe, se comprueba su CRC-32 y se guarda en el disco.</li>
+<li><strong>Recorta el comprimido detrás.</strong> Solo entonces esa parte se corta del comprimido y el espacio se reutiliza para los siguientes archivos.</li>
+</ol>
+</section>
+
+<section id="funciones" aria-labelledby="funciones-h">
+<h2 id="funciones-h">Qué hace</h2>
+<p class="sub">Construido con pruebas que detienen la extracción en cada paso y comprueban el resultado. Viene más: .tar.xz, .tar.zst y .tar.bz2, relectura antes de cada corte, la app en español.</p>
+<div class="grid">
+<div class="card"><h3>ZIP, 7z, RAR, tar, .tar.gz</h3><p>ZIP64 y <code>.exe</code> autoextraíbles, 7z sólidos y divididos, RAR 5 y RAR 4 por volúmenes, partes <code>.001</code>. ZIP, 7z y RAR con contraseña.</p></div>
+<div class="card"><h3>Se pausa y continúa</h3><p>Ctrl+C, un cuelgue o un corte de luz en cualquier momento: ábrelo otra vez y sigue donde quedó. O restaura el resto como un comprimido normal.</p></div>
+<div class="card"><h3>Nunca sobrescribe</h3><p>Los archivos que ya existen se conservan, salvo que elijas reemplazar, omitir o conservar ambos para cada uno.</p></div>
+<div class="card"><h3>Rechaza comprimidos maliciosos</h3><p>Rutas que escapan de la carpeta, entradas que se solapan y enlaces peligrosos se rechazan antes de borrar nada.</p></div>
+<div class="card"><h3>También conserva el comprimido</h3><p>Si hay espacio para ambos, extrae de forma normal y consérvalo: <code>--keep-archive</code> o Extraer aquí (conservar).</p></div>
+<div class="card"><h3>Cualquier disco</h3><p>NTFS, APFS, ext4, btrfs, XFS, y memorias USB exFAT y FAT32. Sin acceso a internet, sin telemetría.</p></div>
+</div>
+</section>
+
+<section aria-labelledby="medidas-h">
+<h2 id="medidas-h">Medido</h2>
+<p class="sub">Los mismos 200 MB de datos de un juego (21 archivos), comprimidos con las herramientas reales, extraídos en un disco de 220 MiB con unos 50 MB libres.</p>
+<div class="table">
+<table>
+<thead><tr><th scope="col">Comprimido</th><th scope="col"><code>unzip</code> / 7-Zip</th><th scope="col">MoltZip</th></tr></thead>
+<tbody>
+<tr><th scope="row">ZIP, 180 MB</th><td class="no">Se quedó sin espacio en el archivo 6 de 21</td><td class="yes">Terminó, cada archivo idéntico byte a byte</td></tr>
+<tr><th scope="row">7z, 10 bloques sólidos</th><td class="no">Necesita 380 MB</td><td class="yes">Terminó en 0,64 s</td></tr>
+<tr><th scope="row">7z dividido en 5 volúmenes</th><td class="no">Necesita 380 MB</td><td class="yes">Terminó, pico de 210 MB usados</td></tr>
+<tr><th scope="row">tar, 200 MB</th><td class="no">Necesita 400 MB</td><td class="yes">Terminó en 0,12 s</td></tr>
+</tbody>
+</table>
+</div>
+<p class="note">Fedora 43, Intel Core i7-14700HX, SSD NVMe, caché de páginas caliente; un tmpfs de 220 MiB hizo de disco lleno.</p>
+</section>
+
+<section aria-labelledby="todas">
+<h2 id="todas">Todas las descargas</h2>
+<p class="sub">Cada archivo tiene su suma <code>.sha256</code> en la <a href="https://github.com/morningstar-code/moltzip/releases/latest">página de versiones</a>. <a href="../verify.html">Verificar una descarga</a> (en inglés).</p>
+<div class="table">
+<table>
+<thead><tr><th scope="col">Sistema</th><th scope="col">App de escritorio y línea de comandos</th><th scope="col">Solo línea de comandos</th></tr></thead>
+<tbody>
+<tr><th scope="row">Windows 10 y 11</th><td><a href="https://github.com/morningstar-code/moltzip/releases/latest/download/MoltZip-x64-setup.exe">Instalador</a>, <a href="https://github.com/morningstar-code/moltzip/releases/latest/download/MoltZip-x64.msi">MSI</a>, <a href="https://github.com/morningstar-code/moltzip/releases/latest/download/MoltZip-x64-portable.zip">zip portable</a></td><td><a href="https://github.com/morningstar-code/moltzip/releases/latest/download/moltzip-x86_64-windows.zip">moltzip-x86_64-windows.zip</a></td></tr>
+<tr><th scope="row">macOS, Apple Silicon</th><td><a href="https://github.com/morningstar-code/moltzip/releases/latest/download/MoltZip-aarch64.dmg">MoltZip-aarch64.dmg</a></td><td><a href="https://github.com/morningstar-code/moltzip/releases/latest/download/moltzip-aarch64-macos.tar.gz">moltzip-aarch64-macos.tar.gz</a></td></tr>
+<tr><th scope="row">macOS, Intel</th><td><a href="https://github.com/morningstar-code/moltzip/releases/latest/download/MoltZip-x86_64.dmg">MoltZip-x86_64.dmg</a></td><td><a href="https://github.com/morningstar-code/moltzip/releases/latest/download/moltzip-x86_64-macos.tar.gz">moltzip-x86_64-macos.tar.gz</a></td></tr>
+<tr><th scope="row">Linux x64</th><td><a href="https://github.com/morningstar-code/moltzip/releases/latest/download/MoltZip-x86_64.AppImage">AppImage</a>, <a href="https://github.com/morningstar-code/moltzip/releases/latest/download/moltzip_amd64.deb">.deb</a>, <a href="https://github.com/morningstar-code/moltzip/releases/latest/download/moltzip-x86_64.rpm">.rpm</a></td><td><a href="https://github.com/morningstar-code/moltzip/releases/latest/download/moltzip-x86_64-linux.tar.gz">moltzip-x86_64-linux.tar.gz</a></td></tr>
+<tr><th scope="row">Linux ARM64</th><td></td><td><a href="https://github.com/morningstar-code/moltzip/releases/latest/download/moltzip-aarch64-linux.tar.gz">moltzip-aarch64-linux.tar.gz</a></td></tr>
+</tbody>
+</table>
+</div>
+<p>O instala la herramienta de línea de comandos desde una terminal. Linux y macOS:</p>
+<pre><code>curl -fsSL https://raw.githubusercontent.com/morningstar-code/moltzip/main/install.sh | sh</code></pre>
+<p>Windows, en PowerShell:</p>
+<pre><code>irm https://raw.githubusercontent.com/morningstar-code/moltzip/main/install.ps1 | iex</code></pre>
+<p>Luego <code>moltzip check juego.zip</code> te dice si cabe y <code>moltzip extract juego.zip</code> lo extrae. <code>mz</code> es el nombre corto.</p>
+<p class="note">Las descargas aún no tienen firma de código. En Windows elige Más información y luego Ejecutar de todas formas. En macOS, abre la app una vez y permítela en Configuración del Sistema, Privacidad y seguridad.</p>
+</section>
+
+<section id="preguntas" aria-labelledby="preguntas-h">
+<h2 id="preguntas-h">Preguntas</h2>
+<details><summary>¿Es seguro? Borra mi comprimido.</summary><p>Nada cambia hasta que el plan cabe. Cada archivo se escribe y se guarda en el disco antes de cortar la parte del comprimido que lo contiene, así que un cuelgue deja cada archivo extraído o todavía dentro del comprimido. Se verifica la suma de cada archivo y uno dañado detiene el proceso. Si no puedes volver a descargar el comprimido, usa <code>--verify-first</code>, o consérvalo con <code>--keep-archive</code>.</p></details>
+<details><summary>¿Cuánto espacio libre necesita?</summary><p>Más o menos el tamaño de los archivos extraídos, más la pieza más grande que puede liberar de una vez: un archivo en ZIP, tar y RAR, un bloque sólido en 7z. Además reserva 2 GB libres. <code>moltzip check</code> muestra la cifra exacta sin cambiar nada.</p></details>
+<details><summary>¿Y si se cuelga o lo detengo?</summary><p>Ejecuta el mismo comando o abre el mismo comprimido otra vez y continúa. Para abandonar, <code>moltzip restore</code> convierte lo que queda en un comprimido normal que cualquier programa abre.</p></details>
+<details><summary>¿Usa internet?</summary><p>No. No tiene código ni bibliotecas de red, ni telemetría, ni cuentas. Su CI falla si alguna vez entra una en las dependencias.</p></details>
+</section>
+</main>
+
+<footer>
+<p>MoltZip es gratis: <a href="https://github.com/morningstar-code/moltzip/blob/main/LICENSE.md">licencia</a>. Incluye componentes de código abierto con sus propias licencias: <a href="https://github.com/morningstar-code/moltzip/blob/main/THIRD-PARTY-NOTICES.md">avisos de terceros</a>.</p>
+<p><a href="https://github.com/morningstar-code/moltzip">GitHub</a> · <a href="https://github.com/morningstar-code/moltzip/issues">Reportar un error</a> · <a href="../" hreflang="en">English</a></p>
+<p>Hecho por <a href="https://github.com/morningstar-code">Morningstar</a>.</p>
+</footer>
+</div>
+</body>
+</html>

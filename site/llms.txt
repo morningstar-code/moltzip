@@ -1,0 +1,28 @@
+# MoltZip
+
+> A free archive extractor for Windows, macOS and Linux that extracts in place: it cuts the archive away as the files come out, so it needs free space for the extracted files only, not for the files and the archive together.
+
+Site: https://morningstar-code.github.io/moltzip (Spanish: /es/). Downloads and issues: https://github.com/morningstar-code/moltzip. Free to use; the source code is private. Current version 0.2.0. A desktop app and a command line tool, `moltzip` (short name `mz`).
+
+## What it does
+
+- Extracts ZIP (ZIP64, self-extracting .exe), 7z (solid and non-solid), RAR 5 and RAR 4 (single files and volume sets), tar, .tar.gz/.tgz, and split .001 archives
+- Extracts from the end of the archive and truncates it behind each committed batch, so a 180 GB archive that unpacks to 200 GB needs a little over 200 GB instead of 380 GB
+- Checks that the extraction fits before it changes anything; keeps 2 GB free by default (`--keep-free`)
+- Crash safe: stop it, kill it or lose power at any moment and the same command resumes; `moltzip restore` turns what is left into a normal archive
+- Never overwrites existing files unless asked; refuses hostile archives before anything is deleted
+- No network access, no telemetry
+
+## Install
+
+- Windows: https://github.com/morningstar-code/moltzip/releases/latest/download/MoltZip-x64-setup.exe
+- macOS: MoltZip-aarch64.dmg (Apple Silicon), MoltZip-x86_64.dmg (Intel) from the latest release
+- Linux: MoltZip-x86_64.AppImage, moltzip_amd64.deb, moltzip-x86_64.rpm from the latest release
+- Command line: `curl -fsSL https://raw.githubusercontent.com/morningstar-code/moltzip/main/install.sh | sh` or, on Windows, `irm https://raw.githubusercontent.com/morningstar-code/moltzip/main/install.ps1 | iex`
+
+## Usage
+
+- `moltzip check game.zip`: will it fit, changes nothing
+- `moltzip extract game.zip`: extract in place into ./game/
+- `moltzip extract game.zip --keep-archive`: normal extraction, archive kept
+- `moltzip restore game.zip`: give up on an unfinished extraction
