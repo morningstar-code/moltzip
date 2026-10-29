@@ -28,13 +28,13 @@
   </picture>
 </p>
 
-MoltZip is a free archive extractor for Windows, macOS and Linux, with a desktop app and a command line tool. It extracts ZIP, 7z, RAR, tar, `.tar.gz` and split archives **in place**, for when there is not enough disk space to extract an archive next to itself, such as a large game download on a nearly full disk.
+MoltZip is a free archive extractor for Windows, macOS and Linux, with a desktop app and a command line tool. It extracts ZIP, 7z, RAR, tar, `.tar.gz`, `.tar.xz`, `.tar.zst`, `.tar.bz2` and split archives **in place**, for when there is not enough disk space to extract an archive next to itself, such as a large game download on a nearly full disk.
 
 ## The problem it solves
 
 A 180 GB download that unpacks to 200 GB needs **380 GB** of disk with WinRAR, 7-Zip or `unzip`, because the archive and everything extracted from it have to exist at the same time. MoltZip needs **a little over 200 GB**. It extracts the archive from the end and cuts each finished part off the archive file as it goes, so the space the archive gives back is reused for the next files.
 
-It checks that the extraction will fit before it changes anything, keeps a safety margin of free space the whole way through, and can be stopped or crash at any moment and pick up where it left off.
+It checks that the extraction will fit before it changes anything, reads every file back from the disk before the part of the archive holding it is cut, keeps a safety margin of free space the whole way through, and can be stopped or crash at any moment and pick up where it left off. The desktop app speaks English and Spanish.
 
 ## Download
 
@@ -83,6 +83,7 @@ moltzip extract game.zip -o D:\Games    # somewhere else
 moltzip x game.7z.001                   # split archive: any part's name works
 moltzip extract game.zip --keep-archive # a normal extraction that keeps the archive
 moltzip restore game.zip                # give up: what is left becomes a normal archive again
+moltzip check game.zip --json           # one JSON document for scripts (also list and test)
 ```
 
 Press `Ctrl+C` to pause and run the same command to continue. Progress lives in two small files next to the archive, `game.zip.moltzip` and `game.zip.moltzip-tail`: **do not delete them while an extraction is unfinished**. `moltzip --help` and `man moltzip` have every option.
@@ -103,6 +104,7 @@ MoltZip destroys the archive as it extracts, so it is built around never losing 
 
 - **Nothing changes until the plan fits.** The space check replays the whole extraction to find the moment that needs the most free space, not just the total.
 - **A file is written, flushed to the physical disk and renamed into place before the part of the archive holding it is cut off.** A crash at any point leaves either the file or its bytes in the archive, never neither.
+- **Every file is read back before its archive bytes are cut.** Its size and checksum are compared with what was written, so an antivirus that quarantines or changes a file, or a write the disk did not keep, stops the run while the archive still holds the file. `--no-verify-written` turns this off.
 - **Damage stops the run where it is.** Every file's checksum is verified as it is extracted; a damaged file is not written and stays in the archive.
 - **Hostile archives are refused before anything is deleted:** paths that escape the output folder, overlapping or repeated entries, dangerous links.
 - **Existing files are never overwritten** unless you choose to replace, skip or keep both.
@@ -119,14 +121,15 @@ If the download itself is damaged, the files before the damage come out and the 
 | RAR 5 and RAR 4, single files and volume sets | One file; a volume once it is empty |
 | tar, `.tar.gz`, `.tgz` | One file (`.tar.gz`: 256 MiB of output where the disk can free part of a file) |
 | Split archives (`.001`, `.002`, ...) of ZIP or 7z | One file or block; each volume deleted once emptied |
+| `.tar.xz`, `.tar.zst`, `.tar.bz2` | The whole archive, once every file is out: they need room for the archive and the files at once, and an interrupted extraction starts over with the archive untouched |
 
 A 7z made with 7-Zip's default settings can be one solid block, which can only be freed once all of it is out; `moltzip check` says so before anything changes. A solid RAR is extracted only while keeping the archive.
 
-## Coming in 0.3.0
+## New in 0.3.0
 
-- `.tar.xz`, `.tar.zst` and `.tar.bz2`
-- Every file read back from the disk and its checksum compared before the archive bytes holding it are cut, to catch an antivirus that quarantines a file or a write the disk did not keep
-- The desktop app in Spanish, following the system language
+- `.tar.xz`, `.tar.zst` and `.tar.bz2`, including split `.001` sets
+- Every file read back from the disk, and its size and checksum compared, before the archive bytes holding it are cut
+- The desktop app in Spanish, following the system language or chosen in Settings
 - `--json` output for `check`, `list` and `test`
 - An option to open the folder when an extraction completes
 

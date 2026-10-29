@@ -58,15 +58,20 @@
 <p class="sub">Una descarga de 180 GB que ocupa 200 GB al extraerla necesita 380 GB con WinRAR, 7-Zip o <code>unzip</code>, porque el comprimido y los archivos existen al mismo tiempo. MoltZip necesita poco más de 200 GB.</p>
 <ol class="steps">
 <li><strong>Comprueba antes de tocar nada.</strong> Simula toda la extracción para encontrar el momento que más espacio necesita y te dice si cabe.</li>
-<li><strong>Extrae desde el final.</strong> Cada archivo se escribe, se comprueba su CRC-32 y se guarda en el disco.</li>
+<li><strong>Extrae desde el final.</strong> Cada archivo se escribe, se guarda en el disco y se vuelve a leer para probar que está intacto.</li>
 <li><strong>Recorta el comprimido detrás.</strong> Solo entonces esa parte se corta del comprimido y el espacio se reutiliza para los siguientes archivos.</li>
 </ol>
 </section>
 
 <section id="funciones" aria-labelledby="funciones-h">
 <h2 id="funciones-h">Qué hace</h2>
-<p class="sub">Construido con pruebas que detienen la extracción en cada paso y comprueban el resultado. Viene más: .tar.xz, .tar.zst y .tar.bz2, relectura antes de cada corte, la app en español.</p>
+<p class="sub">Construido con pruebas que detienen la extracción en cada paso y comprueban el resultado. Lo nuevo de la 0.3.0 está marcado.</p>
 <div class="grid">
+<div class="card new"><span class="tag">Nuevo</span><h3>.tar.xz, .tar.zst y .tar.bz2</h3><p>Los formatos tar comprimidos de las descargas de Linux, las copias de seguridad y los datasets también se extraen aquí.</p></div>
+<div class="card new"><span class="tag">Nuevo</span><h3>Relectura antes de cada corte</h3><p>Cada archivo se vuelve a leer del disco y se compara su suma antes de cortar los bytes del comprimido que lo contienen. Si un antivirus lo pone en cuarentena o la escritura falla, se detiene sin perder nada.</p></div>
+<div class="card new"><span class="tag">Nuevo</span><h3>En español y en inglés</h3><p>La app sigue el idioma de tu sistema, o elige uno en Configuración.</p></div>
+<div class="card new"><span class="tag">Nuevo</span><h3>JSON para scripts</h3><p><code>moltzip check --json</code>, <code>list --json</code> y <code>test --json</code> imprimen un documento legible por máquinas para automatizar.</p></div>
+<div class="card new"><span class="tag">Nuevo</span><h3>Abre la carpeta al terminar</h3><p>Una opción para abrir la carpeta extraída en cuanto termina la extracción.</p></div>
 <div class="card"><h3>ZIP, 7z, RAR, tar, .tar.gz</h3><p>ZIP64 y <code>.exe</code> autoextraíbles, 7z sólidos y divididos, RAR 5 y RAR 4 por volúmenes, partes <code>.001</code>. ZIP, 7z y RAR con contraseña.</p></div>
 <div class="card"><h3>Se pausa y continúa</h3><p>Ctrl+C, un cuelgue o un corte de luz en cualquier momento: ábrelo otra vez y sigue donde quedó. O restaura el resto como un comprimido normal.</p></div>
 <div class="card"><h3>Nunca sobrescribe</h3><p>Los archivos que ya existen se conservan, salvo que elijas reemplazar, omitir o conservar ambos para cada uno.</p></div>
@@ -118,7 +123,7 @@
 
 <section id="preguntas" aria-labelledby="preguntas-h">
 <h2 id="preguntas-h">Preguntas</h2>
-<details><summary>¿Es seguro? Borra mi comprimido.</summary><p>Nada cambia hasta que el plan cabe. Cada archivo se escribe y se guarda en el disco antes de cortar la parte del comprimido que lo contiene, así que un cuelgue deja cada archivo extraído o todavía dentro del comprimido. Se verifica la suma de cada archivo y uno dañado detiene el proceso. Si no puedes volver a descargar el comprimido, usa <code>--verify-first</code>, o consérvalo con <code>--keep-archive</code>.</p></details>
+<details><summary>¿Es seguro? Borra mi comprimido.</summary><p>Nada cambia hasta que el plan cabe. Cada archivo se escribe, se guarda en el disco y se vuelve a leer antes de cortar la parte del comprimido que lo contiene, así que un cuelgue deja cada archivo extraído o todavía dentro del comprimido. Se verifica la suma de cada archivo y uno dañado detiene el proceso. Si no puedes volver a descargar el comprimido, usa <code>--verify-first</code>, o consérvalo con <code>--keep-archive</code>.</p></details>
 <details><summary>¿Cuánto espacio libre necesita?</summary><p>Más o menos el tamaño de los archivos extraídos, más la pieza más grande que puede liberar de una vez: un archivo en ZIP, tar y RAR, un bloque sólido en 7z. Además reserva 2 GB libres. <code>moltzip check</code> muestra la cifra exacta sin cambiar nada.</p></details>
 <details><summary>¿Y si se cuelga o lo detengo?</summary><p>Ejecuta el mismo comando o abre el mismo comprimido otra vez y continúa. Para abandonar, <code>moltzip restore</code> convierte lo que queda en un comprimido normal que cualquier programa abre.</p></details>
 <details><summary>¿Usa internet?</summary><p>No. No tiene código ni bibliotecas de red, ni telemetría, ni cuentas. Su CI falla si alguna vez entra una en las dependencias.</p></details>

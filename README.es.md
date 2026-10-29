@@ -28,13 +28,13 @@
   </picture>
 </p>
 
-MoltZip es un extractor de archivos gratuito para Windows, macOS y Linux, con app de escritorio y herramienta de línea de comandos. Extrae ZIP, 7z, RAR, tar, `.tar.gz` y archivos comprimidos divididos **en el sitio**, para cuando no hay espacio en el disco para extraer un comprimido junto a sí mismo, como la descarga de un juego grande en un disco casi lleno.
+MoltZip es un extractor de archivos gratuito para Windows, macOS y Linux, con app de escritorio y herramienta de línea de comandos. Extrae ZIP, 7z, RAR, tar, `.tar.gz`, `.tar.xz`, `.tar.zst`, `.tar.bz2` y archivos comprimidos divididos **en el sitio**, para cuando no hay espacio en el disco para extraer un comprimido junto a sí mismo, como la descarga de un juego grande en un disco casi lleno.
 
 ## El problema que resuelve
 
 Una descarga de 180 GB que ocupa 200 GB al extraerla necesita **380 GB** de disco con WinRAR, 7-Zip o `unzip`, porque el comprimido y todo lo extraído tienen que existir al mismo tiempo. Con MoltZip necesita **poco más de 200 GB**: extrae el comprimido desde el final y corta cada parte terminada del archivo, así el espacio que devuelve el comprimido se reutiliza para los siguientes archivos.
 
-Antes de cambiar nada comprueba que la extracción cabe, mantiene un margen de espacio libre todo el tiempo, y se puede detener o colgar en cualquier momento y continuar donde quedó.
+Antes de cambiar nada comprueba que la extracción cabe, vuelve a leer cada archivo del disco antes de cortar la parte del comprimido que lo contiene, mantiene un margen de espacio libre todo el tiempo, y se puede detener o colgar en cualquier momento y continuar donde quedó. La app de escritorio está en español e inglés.
 
 ## Descargar
 
@@ -83,6 +83,7 @@ moltzip extract juego.zip -o D:\Juegos   # en otra carpeta
 moltzip x juego.7z.001                   # comprimido dividido: sirve el nombre de cualquier parte
 moltzip extract juego.zip --keep-archive # extracción normal que conserva el comprimido
 moltzip restore juego.zip                # abandonar: lo que queda vuelve a ser un comprimido normal
+moltzip check juego.zip --json           # un documento JSON para scripts (también list y test)
 ```
 
 Pulsa `Ctrl+C` para pausar y ejecuta el mismo comando para continuar. El progreso vive en dos archivos pequeños junto al comprimido, `juego.zip.moltzip` y `juego.zip.moltzip-tail`: **no los borres mientras la extracción no termine**. `moltzip --help` y `man moltzip` tienen todas las opciones.
@@ -103,6 +104,7 @@ MoltZip destruye el comprimido mientras extrae, así que está construido para n
 
 - **Nada cambia hasta que el plan cabe.** La comprobación de espacio simula toda la extracción para encontrar el momento que más espacio necesita, no solo el total.
 - **Cada archivo se escribe, se guarda en el disco físico y se renombra antes de cortar la parte del comprimido que lo contiene.** Un cuelgue en cualquier punto deja o el archivo o sus bytes en el comprimido, nunca ninguno de los dos.
+- **Cada archivo se vuelve a leer antes de cortar sus bytes del comprimido.** Se compara su tamaño y su suma con lo que se escribió, así que si un antivirus lo pone en cuarentena o lo cambia, o el disco no guardó la escritura, el proceso se detiene mientras el comprimido todavía lo contiene. `--no-verify-written` lo desactiva.
 - **Un daño detiene el proceso donde está.** Se verifica la suma de cada archivo al extraerlo; uno dañado no se escribe y queda en el comprimido.
 - **Los comprimidos maliciosos se rechazan antes de borrar nada:** rutas que escapan de la carpeta de salida, entradas que se solapan o se repiten, enlaces peligrosos.
 - **Nunca sobrescribe** archivos existentes, salvo que elijas reemplazar, omitir o conservar ambos.
@@ -119,14 +121,15 @@ Si la descarga en sí está dañada, los archivos anteriores al daño salen y el
 | RAR 5 y RAR 4, sueltos y por volúmenes | Un archivo; un volumen cuando queda vacío |
 | tar, `.tar.gz`, `.tgz` | Un archivo (`.tar.gz`: 256 MiB de salida donde el disco puede liberar parte de un archivo) |
 | Divididos (`.001`, `.002`, ...) de ZIP o 7z | Un archivo o bloque; cada volumen se borra al vaciarse |
+| `.tar.xz`, `.tar.zst`, `.tar.bz2` | El comprimido entero, cuando ya salieron todos los archivos: necesitan espacio para el comprimido y los archivos a la vez, y una extracción interrumpida empieza de nuevo con el comprimido intacto |
 
 Un 7z hecho con la configuración por defecto de 7-Zip puede ser un solo bloque sólido, que solo se libera cuando sale entero; `moltzip check` lo avisa antes de cambiar nada. Un RAR sólido solo se extrae conservando el comprimido.
 
-## Llega en la 0.3.0
+## Novedades de la 0.3.0
 
-- `.tar.xz`, `.tar.zst` y `.tar.bz2`
-- Cada archivo se vuelve a leer del disco y se compara su suma antes de cortar los bytes del comprimido que lo contienen, para detectar un antivirus que lo ponga en cuarentena o una escritura que el disco no guardó
-- La app de escritorio en español, siguiendo el idioma del sistema
+- `.tar.xz`, `.tar.zst` y `.tar.bz2`, también divididos en `.001`
+- Cada archivo se vuelve a leer del disco, y se comparan su tamaño y su suma, antes de cortar los bytes del comprimido que lo contienen
+- La app de escritorio en español, según el idioma del sistema o elegido en Configuración
 - Salida `--json` para `check`, `list` y `test`
 - Una opción para abrir la carpeta al terminar la extracción
 

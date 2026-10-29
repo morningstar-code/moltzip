@@ -22,7 +22,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="alternate" type="text/plain" href="llms.txt" title="MoltZip for language models">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"SoftwareApplication","name":"MoltZip","description":"A free archive extractor that extracts ZIP, 7z, RAR, tar, .tar.gz and split archives in place, so it needs free space for the extracted files only.","applicationCategory":"UtilitiesApplication","operatingSystem":"Windows 10, Windows 11, macOS, Linux","softwareVersion":"0.2.0","url":"https://morningstar-code.github.io/moltzip/","downloadUrl":"https://github.com/morningstar-code/moltzip/releases/latest","license":"https://github.com/morningstar-code/moltzip/blob/main/LICENSE.md","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"MoltZip","description":"A free archive extractor that extracts ZIP, 7z, RAR, tar, .tar.gz, .tar.xz, .tar.zst, .tar.bz2 and split archives in place, so it needs free space for the extracted files only.","applicationCategory":"UtilitiesApplication","operatingSystem":"Windows 10, Windows 11, macOS, Linux","softwareVersion":"0.3.0","url":"https://morningstar-code.github.io/moltzip/","downloadUrl":"https://github.com/morningstar-code/moltzip/releases/latest","license":"https://github.com/morningstar-code/moltzip/blob/main/LICENSE.md","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
 </script>
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="style.css?v=7">
@@ -64,15 +64,20 @@
 <p class="sub">A 180 GB download that unpacks to 200 GB needs 380 GB with WinRAR, 7-Zip or <code>unzip</code>, because the archive and the files exist at the same time. MoltZip needs a little over 200 GB.</p>
 <ol class="steps">
 <li><strong>Checks before touching anything.</strong> It replays the whole extraction to find the moment that needs the most space, and tells you if it fits.</li>
-<li><strong>Extracts from the end.</strong> Files are written, checked against their CRC-32 and flushed to the disk.</li>
+<li><strong>Extracts from the end.</strong> Files are written, flushed to the disk and read back to prove they are intact.</li>
 <li><strong>Cuts the archive behind it.</strong> Only then is that part cut off the archive file, and the space is reused for the next files.</li>
 </ol>
 </section>
 
 <section id="features" aria-labelledby="features-h">
 <h2 id="features-h">What it does</h2>
-<p class="sub">Built around crash tests that stop the extraction at every step and check the result. More is on the way: .tar.xz, .tar.zst and .tar.bz2, read-back before every cut, the app in Spanish.</p>
+<p class="sub">Built around crash tests that stop the extraction at every step and check the result. What is new in 0.3.0 is marked.</p>
 <div class="grid">
+<div class="card new"><span class="tag">New</span><h3>.tar.xz, .tar.zst and .tar.bz2</h3><p>The compressed tar formats of Linux downloads, backups and datasets extract here too.</p></div>
+<div class="card new"><span class="tag">New</span><h3>Read-back before every cut</h3><p>Each file is read back from the disk and its checksum compared before the archive bytes holding it are cut off. An antivirus that quarantines a file, or a bad write, stops the run with nothing lost.</p></div>
+<div class="card new"><span class="tag">New</span><h3>In English and Spanish</h3><p>The app follows your system language, or pick one in Settings. Your extractor, en tu idioma.</p></div>
+<div class="card new"><span class="tag">New</span><h3>JSON for scripts</h3><p><code>moltzip check --json</code>, <code>list --json</code> and <code>test --json</code> print one machine-readable document for automation.</p></div>
+<div class="card new"><span class="tag">New</span><h3>Opens the folder when done</h3><p>An option to open the extracted folder as soon as the extraction completes.</p></div>
 <div class="card"><h3>ZIP, 7z, RAR, tar, .tar.gz</h3><p>ZIP64 and self-extracting <code>.exe</code>, solid and split 7z, RAR 5 and RAR 4 volume sets, <code>.001</code> splits. Password-protected ZIP, 7z and RAR.</p></div>
 <div class="card"><h3>Stops and resumes</h3><p>Ctrl+C, a crash or a power cut at any moment: run it again and it continues where it stopped. Or restore the rest as a normal archive.</p></div>
 <div class="card"><h3>Never overwrites</h3><p>Existing files are kept unless you choose replace, skip or keep both for each one.</p></div>
@@ -124,7 +129,7 @@
 
 <section id="faq" aria-labelledby="faq-h">
 <h2 id="faq-h">Questions</h2>
-<details><summary>Is it safe? It deletes my archive.</summary><p>Nothing changes until the plan fits. A file is written and flushed to the disk before the part of the archive holding it is cut off, so a crash leaves every file either extracted or still in the archive. Every file's checksum is verified, and a damaged one stops the run. When the archive can't be downloaded again, add <code>--verify-first</code>, or keep it with <code>--keep-archive</code>.</p></details>
+<details><summary>Is it safe? It deletes my archive.</summary><p>Nothing changes until the plan fits. A file is written, flushed to the disk and read back before the part of the archive holding it is cut off, so a crash leaves every file either extracted or still in the archive. Every file's checksum is verified, and a damaged one stops the run. When the archive can't be downloaded again, add <code>--verify-first</code>, or keep it with <code>--keep-archive</code>.</p></details>
 <details><summary>How much free space does it need?</summary><p>About the size of the extracted files plus the largest piece it can free at once: one file for ZIP, tar and RAR, one solid block for 7z. It also keeps 2 GB free. <code>moltzip check</code> shows the exact figure and changes nothing.</p></details>
 <details><summary>What if it crashes or I stop it?</summary><p>Run the same command or open the same archive again and it continues. To give up, <code>moltzip restore</code> turns what is left into a normal archive any tool opens.</p></details>
 <details><summary>Does it use the internet?</summary><p>No. It has no networking code and no networking library, no telemetry and no accounts. Its CI fails if one ever enters the dependencies.</p></details>
